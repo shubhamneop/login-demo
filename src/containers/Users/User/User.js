@@ -1,5 +1,7 @@
 import React from 'react'
 import Button from '../../../components/UI/Button/Button';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit,faTrash } from '@fortawesome/free-solid-svg-icons';
 
 
 const user = (props) => {
@@ -9,8 +11,8 @@ const user = (props) => {
           <td>{props.name}</td>
           <td>{props.email}</td>
           <td>
-            <Button btnType="Success" clicked={() => props.edit(props.token,props.id)}>Edit</Button>
-            <Button btnType="Danger" clicked={() => props.clicked(props.id)}>Delete</Button>
+            <Button btnType="Success" clicked={() => props.edit(props.token,props.id)} title="Edit User"><FontAwesomeIcon icon={faEdit} /></Button>
+            <Button btnType="Danger" clicked={() => props.clicked(props.id)} title="Delete User"><FontAwesomeIcon icon={faTrash} /></Button>
           </td>
 
       </tr>

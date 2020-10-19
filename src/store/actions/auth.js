@@ -38,9 +38,14 @@ export const auth = (email, password) => {
         }
         axios.post('/login',authData)
         .then(response => {
-            localStorage.setItem('token',response.data.api_key);
-            localStorage.setItem('name', response.data.name);
-            dispatch(authSuccess(response.data.api_key, response.data.name));
+            if(response.data.status) {
+                localStorage.setItem('token',response.data.api_key);
+                localStorage.setItem('name', response.data.name);
+                dispatch(authSuccess(response.data.api_key, response.data.name));
+            } else {
+                dispatch(authFail());
+            }
+            
             // this.props.history.push( '/' );
         })
         .catch(error => {

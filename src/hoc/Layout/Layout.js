@@ -3,6 +3,9 @@ import Aux from '../Aux/Aux';
 import { NavLink } from 'react-router-dom';
 import classes from './Layout.module.css';
 import {connect} from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHome, faUserFriends, faSignOutAlt, faSign, faSignInAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+
 
 class Layout extends Component {
     
@@ -16,11 +19,11 @@ class Layout extends Component {
                 </div>
                 <nav>
                     <ul className={classes.NavigationItems}>
-                       {!this.props.isAuth ? <li className={classes.NavigationItem}> <NavLink to="/register" exact activeClassName={classes.active} >Register</NavLink> </li> : null }
-                       {!this.props.isAuth ?  <li className={classes.NavigationItem}> <NavLink to="/auth" exact activeClassName={classes.active}>Login</NavLink> </li> : null }
-                        <li className={classes.NavigationItem}> <NavLink to="/" exact activeClassName={classes.active}>Index</NavLink> </li>
-                        {this.props.isAuth && <li className={classes.NavigationItem}><NavLink to="/users"  activeClassName={classes.active}>Users</NavLink></li>}
-                        {this.props.isAuth ? <li className={classes.NavigationItem}> <NavLink to="/logout" exact activeClassName={classes.active}>Logout</NavLink> </li> : null }
+                       {!this.props.isAuth ? <li className={classes.NavigationItem}> <NavLink to="/register" exact activeClassName={classes.active} ><FontAwesomeIcon icon={faUserPlus} /> Register</NavLink> </li> : null }
+                       {!this.props.isAuth ?  <li className={classes.NavigationItem}> <NavLink to="/auth" exact activeClassName={classes.active}><FontAwesomeIcon icon={faSignInAlt} /> Login</NavLink> </li> : null }
+                        <li className={classes.NavigationItem}> <NavLink to="/" exact activeClassName={classes.active}><FontAwesomeIcon icon={faHome} /> Index</NavLink> </li>
+                        {this.props.isAuth && <li className={classes.NavigationItem}><NavLink to="/users"  activeClassName={classes.active}><FontAwesomeIcon icon={faUserFriends} /> Users</NavLink></li>}
+                        {this.props.isAuth ? <li className={classes.NavigationItem}> <NavLink to="/logout" exact activeClassName={classes.active}><FontAwesomeIcon icon={faSignOutAlt} /> Logout</NavLink> </li> : null }
                         
                     </ul>
                 </nav>
