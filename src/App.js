@@ -25,6 +25,14 @@ const Users = React.lazy(() => {
   return import('./containers/Users/Users');
 });
 
+const Quiz = React.lazy(() => {
+  return import('./containers/Quiz');
+});
+
+const Post = React.lazy(() => {
+   return import('./containers/Post/Post');
+});
+
 class App extends Component {
 
   componentDidMount() {
@@ -49,6 +57,8 @@ class App extends Component {
         <Switch>
           <Route path="/logout" exact render={(props) => <Logout {...props} />}/>
           <Route path="/users" exact render={(props) => <Users {...this.props}/>} />
+          <Route path="/quiz" exact render={(props) => <Quiz {...props} />} />
+          <Route path="/posts" exact render={(props) => <Post {...props}/>} />
           <Route path="/" render={(props) => <Index {...props} />} /> 
           <Redirect to="/" />
         </Switch>

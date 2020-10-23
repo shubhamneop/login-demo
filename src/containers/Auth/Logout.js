@@ -6,9 +6,11 @@ import {connect} from 'react-redux';
 class Logout extends Component {
     componentDidMount() {
         this.props.onLogout(this.props.token);
+        this.props.history.push('/auth');
+        this.props.history.replace('/auth');
     }
     render() {
-        return <Redirect to="/" />
+        return <Redirect to="/auth" />
     }
 }
 const mapStateToProps = state => {

@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import classes from './Layout.module.css';
 import {connect} from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faUserFriends, faSignOutAlt, faSign, faSignInAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faUserFriends, faSignOutAlt, faSign, faSignInAlt, faUserPlus, faUniversity, faStickyNote, faTasks } from '@fortawesome/free-solid-svg-icons';
 
 
 class Layout extends Component {
@@ -23,6 +23,8 @@ class Layout extends Component {
                        {!this.props.isAuth ?  <li className={classes.NavigationItem}> <NavLink to="/auth" exact activeClassName={classes.active}><FontAwesomeIcon icon={faSignInAlt} /> Login</NavLink> </li> : null }
                         <li className={classes.NavigationItem}> <NavLink to="/" exact activeClassName={classes.active}><FontAwesomeIcon icon={faHome} /> Index</NavLink> </li>
                         {this.props.isAuth && <li className={classes.NavigationItem}><NavLink to="/users"  activeClassName={classes.active}><FontAwesomeIcon icon={faUserFriends} /> Users</NavLink></li>}
+                        {this.props.isAuth ? <li className={classes.NavigationItem}> <NavLink to="/quiz" exact activeClassName={classes.active}><FontAwesomeIcon icon={faUniversity} /> Quiz</NavLink> </li> : null}
+                        {this.props.isAuth ? <li className={classes.NavigationItem}> <NavLink to="/posts" exact activeClassName={classes.active}><FontAwesomeIcon icon={faTasks} /> Post</NavLink> </li> : null}
                         {this.props.isAuth ? <li className={classes.NavigationItem}> <NavLink to="/logout" exact activeClassName={classes.active}><FontAwesomeIcon icon={faSignOutAlt} /> Logout</NavLink> </li> : null }
                         
                     </ul>

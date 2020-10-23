@@ -18,13 +18,11 @@ class Index extends React.Component {
         }
     }
 
-    // componentDidUpdate() {
-    //     if(!this.props.isAuth) {
-    //         this.props.history.push('/auth');
-    //     } else {
-    //         this.props.history.replace('/');
-    //     }
-    // }
+    componentDidUpdate() {
+        if(!this.props.isAuth) {
+            this.props.history.push('/auth');
+        }
+    }
 
     
     render() {

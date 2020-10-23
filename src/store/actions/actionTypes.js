@@ -18,3 +18,8 @@ export const USER_EDIT_CANCEL = 'USER_EDIT_CANCEL';
 export const USER_EDIT_FAIL = 'USER_EDIT_FAIL';
 
 export const USER_UPDATE = 'USER_UPDATE';
+
+
+export const POST_INIT = 'POST_INIT';
+export const POST_SUCCESS = 'POST_SUCCESS';
+export const ALL_POST = 'ALL_POST';
