@@ -1,0 +1,135 @@
+/* 
+.feed {
+    width: 500px;
+    height: 473px;
+    position: relative;
+  }
+  .like-btn {
+      width: 44px;
+      height: 25px;
+      background: #D0D0D0;
+      position: absolute;
+      bottom: 13px;
+      left: 13px;
+      cursor: pointer;
+  }
+  
+  .like-btn:hover {
+    background: #718C00;
+  }
+  
+  .reaction-box { 
+    position: absolute; 
+    width: 312px; height: 55px; 
+    background: #F0C674; 
+    border-radius: 28px; 
+    left: -25px; bottom: 25px; 
+    display: none; 
+  } 
+  
+  .reaction-box:hover { 
+      display: block; 
+  }
+  
+  .reaction-icon:hover {
+    transform: scale(1.4);
+    transform-origin: bottom;
+  }
+   
+  
+  .reaction-icon {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    background: #8959A8;
+    border-radius: 20px;
+    margin: 8px -1px 0 8px;
+    text-align: center;
+  }
+  
+  label {
+    padding: 3px 5px 3px 5px;
+    position: relative;
+    top: -24px;
+    border-radius: 10px;
+    font-size: 11px;
+    color: #FFF;
+    background: #333;
+  } */
+
+  .feed {
+    /* width: 500px;
+    height: 473px;
+    position: relative; */
+    position: relative;
+    top: 22px;
+    left: 49px;
+}
+
+  .like-btn {
+    width: 44px;
+    height: 25px;
+    background: #D0D0D0;
+    position: absolute;
+    bottom: 13px;
+    left: 13px;
+    cursor: pointer;
+}
+
+.like-btn:hover {
+    background: #718C00;
+  }
+
+  .like-btn::before { 
+      content: "."; 
+      opacity: 0; 
+      display: block; 
+      width: 44px; height: 10px; 
+      position: absolute; 
+      top: -10px; left: 0; 
+    }
+  
+  .reaction-box { 
+    position: absolute; 
+    width: 250px; height: 55px; 
+    background: #F0C674; 
+    border-radius: 28px; 
+    left: -25px; bottom: 25px; 
+    display: none; 
+  } 
+
+  .like-btn:hover .reaction-box { 
+    display: block; 
+   }
+
+   .reaction-icon {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    background: #8959A8;
+    border-radius: 20px;
+    margin: 8px -1px 0 8px;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .icon {
+    padding: 3px 5px 3px 5px;
+    position: relative;
+    top: -24px;
+    border-radius: 10px;
+    font-size: 11px;
+    color: #FFF;
+    background: #333;
+    visibility: hidden; 
+  }
+
+  .like-btn:hover .reaction-box:hover .reaction-icon {
+    transform: scale(1.4);
+    transform-origin: bottom;
+  }
+
+  .reaction-icon:hover .icon {
+        visibility: visible; 
+  }
+

@@ -7,11 +7,12 @@ export const authStart = () => {
     };
 };
 
-export const authSuccess = (token, name) => {
+export const authSuccess = (token, name, userId) => {
     return {
         type: actionTypes.AUTH_SUCCESS,
         token: token,
         name: name,
+        userId: userId,
     };
 };
 
@@ -41,7 +42,8 @@ export const auth = (email, password) => {
             if(response.data.status) {
                 localStorage.setItem('token',response.data.api_key);
                 localStorage.setItem('name', response.data.name);
-                dispatch(authSuccess(response.data.api_key, response.data.name));
+                localStorage.setItem('userId',response.data.userId);
+                dispatch(authSuccess(response.data.api_key, response.data.name, response.data.userId));
             } else {
                 dispatch(authFail());
             }
@@ -69,7 +71,8 @@ export const register = (name, email, password) => {
             if(response.data.status){
                 localStorage.setItem('token',response.data.api_key);
                 localStorage.setItem('name', response.data.name);
-                dispatch(authSuccess(response.data.api_key, response.data.name));
+                localStorage.setItem('userId',response.data.userId);
+                dispatch(authSuccess(response.data.api_key, response.data.name, response.data.userId));
             } else {
                 dispatch(authFail());
             }
@@ -85,7 +88,8 @@ export const checkAuth = () => {
         const token = localStorage.getItem('token');
         if(token !== null) {
             const name = localStorage.getItem('name');
-            dispatch(authSuccess(token, name));
+            const userId = localStorage.getItem('userId');
+            dispatch(authSuccess(token, name, userId));
         } else {
             dispatch(authFail());
         }
@@ -101,6 +105,7 @@ export const logout = (token) => {
             if(res.data.status) {
                 localStorage.removeItem('token');
                 localStorage.removeItem('name');
+                localStorage.removeItem('userId');
                dispatch(authLogout());
             } else {
                 dispatch(authFail());

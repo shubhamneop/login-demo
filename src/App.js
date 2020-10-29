@@ -1,9 +1,10 @@
 import React, { Component, Suspense} from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import Layout from './hoc/Layout/Layout';
 import {connect} from 'react-redux';
 import * as actions from './store/actions/index';
 import './App.css';
+
 
 const Auth = React.lazy(() => {
   return import('./containers/Auth/Auth');
@@ -33,9 +34,14 @@ const Post = React.lazy(() => {
    return import('./containers/Post/Post');
 });
 
+const Chat = React.lazy(() => {
+  return import('./containers/Chat/ChatMain');
+});
+
 class App extends Component {
 
   componentDidMount() {
+    console.log(this.props.history);
     this.props.onChekAuth();
     if(this.props.isAuth) {
       this.props.getUser(this.props.token);
@@ -59,6 +65,7 @@ class App extends Component {
           <Route path="/users" exact render={(props) => <Users {...this.props}/>} />
           <Route path="/quiz" exact render={(props) => <Quiz {...props} />} />
           <Route path="/posts" exact render={(props) => <Post {...props}/>} />
+          <Route path="/chat" render={(props) => <Chat {...props}/>} />
           <Route path="/" render={(props) => <Index {...props} />} /> 
           <Redirect to="/" />
         </Switch>

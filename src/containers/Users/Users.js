@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import User from './User/User';
 import * as actions from '../../store/actions/index';
 import {connect} from 'react-redux';
@@ -7,13 +7,26 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import Aux from '../../hoc/Aux/Aux';
 import Modal from '../../components/UI/Modal/Modal';
 import EditUser from './User/EditUser';
+import ChatMain from '../Chat/ChatMain';
+import {Route, withRouter} from "react-router-dom";
 
 
-class Users extends React.Component {
+class Users extends Component {
+    state = {
+        chat: false,
+    }
     componentDidMount() {
+        console.log(this.props);
         if(this.props.isAuth) {
             this.props.getUser(this.props.token);
         }
+    }
+
+    chatUser = (name, userId) => {
+        this.props.history.push({
+            pathname: '/chat/'+ name,
+            search: `?uid=${userId}&&name=${name}`
+        });
     }
     
 
@@ -23,7 +36,7 @@ class Users extends React.Component {
              users = this.props.users
             .map( user => {
                 return [...Array( this.props.users[user] )].map( ( _, i ) => {
-                    return <User key={user.id} id={user.id} email={user.email} name={user.name} clicked={this.props.removeUser} edit={this.props.editUser} token={this.props.token} />;
+                    return <User key={user.id} id={user.id} uid={user.UID} email={user.email} name={user.name} clicked={this.props.removeUser} edit={this.props.editUser} token={this.props.token} chat={this.chatUser} />;
                 } );
             } )
             .reduce((arr, el) => {
@@ -35,6 +48,12 @@ class Users extends React.Component {
 
         if(this.props.show) {
             edit = <EditUser />;
+        }
+
+        let isChat = null;
+
+        if(this.state.chat) {
+            isChat = <ChatMain />
         }
         
         const tabelClass = [classes.table, classes.table_striped];
@@ -56,6 +75,7 @@ class Users extends React.Component {
             <Modal show={this.props.show} modalClosed={this.props.editCancel}>
                 {edit}
             </Modal>
+            <Route path={this.props.match.url + '/:name'} exact render={(props) => <ChatMain {...props} />}  />
             </Aux>
         );
 
@@ -81,4 +101,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Users);
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Users));

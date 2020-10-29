@@ -5,6 +5,7 @@ import {updateObject} from '../../shared/utility';
 const initialState = {
     token: null,
     name: null,
+    userId: null,
     isAuth: false,
     error: null,
     authRedirectPath: '/',
@@ -15,7 +16,7 @@ const authStart = (state, action) => {
 };
 
 const authSuccess = (state, action) => {
-    return updateObject(state, {token: action.token,name: action.name, isAuth: true});
+    return updateObject(state, {token: action.token,name: action.name, isAuth: true, userId: action.userId});
 };
 
 const authFail = (state, action) => {
