@@ -38,6 +38,10 @@ const Chat = React.lazy(() => {
   return import('./containers/Chat/ChatMain');
 });
 
+const GroupChat = React.lazy(() => {
+  return import('./containers/Chat/GroupChatMain');
+});
+
 class App extends Component {
 
   componentDidMount() {
@@ -66,6 +70,7 @@ class App extends Component {
           <Route path="/quiz" exact render={(props) => <Quiz {...props} />} />
           <Route path="/posts" exact render={(props) => <Post {...props}/>} />
           <Route path="/chat" render={(props) => <Chat {...props}/>} />
+          <Route path="/group/chat" render={(props) => <GroupChat {...props}/>} />
           <Route path="/" render={(props) => <Index {...props} />} /> 
           <Redirect to="/" />
         </Switch>

@@ -7,10 +7,11 @@ import Reaction from '../../components/UI/Reaction';
 import UserReact from '../../components/UI/UserReact';
 import { FontAwesomeIcon}  from '@fortawesome/react-fontawesome';
 import {faCog} from '@fortawesome/free-solid-svg-icons';
+import { connect } from 'react-redux';
 
 
 
-function Chat(props) {
+const  GroupChat = (props)  => {
 
         const [client, setClient] = useState(null);
         const clientRef = useRef(null);
@@ -35,8 +36,11 @@ function Chat(props) {
         userChannelsRef.current = userChannels;
 
         useEffect(() => {
+            console.log(props);
             initializeClient();
-            createChannel();
+            setTimeout(function() {
+                createChannel();
+            }.bind(this), 2000);
             askNotificationPermission();
         }, []);
 
@@ -78,9 +82,9 @@ function Chat(props) {
             return true;
           }
 
-         const createNotification = message => {
+         const createNotification = (message, name) => {
             
-            return new Notification(`${message.user.name} sent a message`, {
+            return new Notification(`Message sent by ${message.user.name} in ${name} group `, {
               body: message.text,
             });
           }
@@ -98,55 +102,63 @@ function Chat(props) {
         }
 
         const createChannel =  async () => {
-            const {data} =  await axios.post('/get_channel', {
-                from_username: props.name,
-                to_username: props.toUserName,
-                from: props.name,
-                to: props.toUserName,
-            })
-            if(clientRef.current && data){
-                const channel = clientRef.current.channel('messaging', '', {
-                    name: 'LiveChat channel',
-                    members: [props.toUserId, props.userId]
-                });
-                channel.watch().then(state => {
-                    channel.on('message.new', event => {
-                        console.log(event);
-                        const messages = [...messageDataRef.current, event.message];
-                        setMessageData(messages);
-                        setTimeout(function(){
-                            if (event.message.user.id !== clientRef.current.user.id) {
-                                createNotification(event.message);
-                             }
-                             if (event.reaction) {
-                                reactionNotification(event.reaction);
-                             }
-                        }.bind(this), 2000);
-                    });
-                })
-                setChannel(channel);
-                setTimeout(function(){
-                    if(channelRef.current.state.messages) {
-                        channelRef.current.state.messages.map(message =>{
-                            const oldMessages = [...messageDataRef.current, message];
-                            setMessageData(oldMessages);
+            // const {data} =  await axios.post('/get_channel', {
+            //     from_username: props.name,
+            //     to_username: props.toUserName,
+            //     from: props.name,
+            //     to: props.toUserName,
+            // })
+            console.log('in create channel');
+            setTimeout(function() {
+                console.log(clientRef.current);
+        
+                if(clientRef.current){
+                    // const channel = clientRef.current.channel('team', '', {
+                    //     name: 'LiveChat channel',
+                    //     members: ['cpjtin', 'Ll9ZXn', 'CE70r3']
+                    // });
+                    const channel = clientRef.current.channel('team', props.channelId);
+                    channel.watch().then(state => {
+                        channel.on('message.new', event => {
+                            console.log(event);
+                            console.log(state.channel.name);
+                            const messages = [...messageDataRef.current, event.message];
+                            setMessageData(messages);
+                            setTimeout(function(){
+                                if (event.message.user.id !== clientRef.current.user.id) {
+                                    createNotification(event.message, state.channel.name);
+                                }
+                                if (event.reaction) {
+                                    reactionNotification(event.reaction);
+                                }
+                            }.bind(this), 2000);
                         });
-                    }
-                }.bind(this),5000);
-
-                    const filters = { type: 'messaging', members: { $in: [`${props.userId}`] } };
-                const sort = { last_message_at: -1 };
-                // const channels = client.queryChannels(filters, sort);
-                const channels = await clientRef.current.queryChannels(filters, sort, {
-                    watch: true,
-                    state: true,
-                });
-                
-                for (const c of channels) {
-                    console.log(c, c.cid);
+                    })
+                    setChannel(channel);
+                    setTimeout(function(){
+                        if(channelRef.current.state.messages) {
+                            channelRef.current.state.messages.map(message =>{
+                                const oldMessages = [...messageDataRef.current, message];
+                                setMessageData(oldMessages);
+                            });
+                        }
+                    }.bind(this),5000);
+                    const channelNew = clientRef.current.channel('team', "!members-3D4BtOrOluL8EdYnzAxJxAON1sbpB-pJigJQTlOpXw4");
+                    console.log(channelNew);
+                    //     const filters = { type: 'team', members: { $in: [`${props.userId}`] } };
+                    // const sort = { last_message_at: -1 };
+                    // // const channels = client.queryChannels(filters, sort);
+                    // const channels = await clientRef.current.queryChannels(filters, sort, {
+                    //     watch: true,
+                    //     state: true,
+                    // });
+                    
+                    // for (const c of channels) {
+                    //     console.log(c, c.cid);
+                    // }
+                    // setUserChannels(channels);
                 }
-                setUserChannels(channels);
-            }
+            }.bind(this), 2000);
         }
 
 
@@ -183,7 +195,7 @@ function Chat(props) {
         <section className="msger">
         <header className="msger-header">
             <div className="msger-header-title">
-            <i className="fas fa-comment-alt"></i> {props.toUserName}
+            <i className="fas fa-comment-alt"></i> Group chat
             </div>
             <div className="msger-header-options">
                 <button onClick={askNotificationPermission}>
@@ -233,4 +245,12 @@ function Chat(props) {
     </section>
     );
 }
-export default Chat;
+
+const mapStateToProps = state => {
+    return {
+        userId : state.auth.userId,
+        name: state.auth.name,
+    }
+}
+
+export default connect(mapStateToProps) (GroupChat);

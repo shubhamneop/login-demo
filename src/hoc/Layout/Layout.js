@@ -26,6 +26,7 @@ class Layout extends Component {
                         {this.props.isAuth ? <li className={classes.NavigationItem}> <NavLink to="/quiz" exact activeClassName={classes.active}><FontAwesomeIcon icon={faUniversity} /> Quiz</NavLink> </li> : null}
                         {this.props.isAuth ? <li className={classes.NavigationItem}> <NavLink to="/posts" exact activeClassName={classes.active}><FontAwesomeIcon icon={faTasks} /> Post</NavLink> </li> : null}
                         {this.props.isAuth ? <li className={classes.NavigationItem}> <NavLink to="/chat" activeClassName={classes.active}><FontAwesomeIcon icon={faTasks} /> Chat</NavLink> </li> : null}
+                        {this.props.isAuth ? <li className={classes.NavigationItem}> <NavLink to="/group/chat" activeClassName={classes.active}><FontAwesomeIcon icon={faTasks} /> Group Chat</NavLink> </li> : null}
                         {this.props.isAuth ? <li className={classes.NavigationItem}> <NavLink to="/logout" exact activeClassName={classes.active}><FontAwesomeIcon icon={faSignOutAlt} /> Logout</NavLink> </li> : null }
                         
                     </ul>
