@@ -1,0 +1,11 @@
+.list {
+    position: relative;
+    left: 13px;
+    border: 1px solid #ccc;
+    box-shadow: 2px 3px #eee;
+    width: auto;
+    height: 30px;
+    padding: 5px;
+    margin-bottom: 5px;
+    margin-right: 15px;
+}

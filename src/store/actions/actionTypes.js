@@ -23,3 +23,11 @@ export const USER_UPDATE = 'USER_UPDATE';
 export const POST_INIT = 'POST_INIT';
 export const POST_SUCCESS = 'POST_SUCCESS';
 export const ALL_POST = 'ALL_POST';
+
+export const CHAT_INIT = 'CHAT_INIT';
+export const CHAT_SET_CLIENT = 'CHAT_SET_CLIENT';
+export const SET_CHAT_USER = 'SET_CHAT_USER';
+export const SET_CHAT_USER_FAIL = 'SET_CHAT_USER_FAIL';
+
+export const SET_CHAT_MEMBER = 'SET_CHAT_MEMBER';
+export const SET_CHAT_MEMBER_FAIL = 'SET_CHAT_MEMBER_FAIL';

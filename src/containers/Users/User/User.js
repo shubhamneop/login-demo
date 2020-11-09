@@ -6,8 +6,8 @@ import { faEdit,faTrash, faEnvelopeOpenText } from '@fortawesome/free-solid-svg-
 
 const user = (props) => {
     return(
-      <tr style={{textAlign: "center"}}>
-          <td>{props.id}</td>
+      <tr style={{textAlign: "center"}} key={props.uid}>
+          <td><input  type="checkbox"  onChange={event =>  props.checkedHandler(event, event.target.checked)} value={props.uid} name={props.name} /></td>
           <td>{props.name}</td>
           <td>{props.email}</td>
           <td>

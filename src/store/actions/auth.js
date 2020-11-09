@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../axios-in';
+import * as actions from '../actions/index';
 
 export const authStart = () => {
     return {
@@ -90,6 +91,7 @@ export const checkAuth = () => {
             const name = localStorage.getItem('name');
             const userId = localStorage.getItem('userId');
             dispatch(authSuccess(token, name, userId));
+            dispatch(actions.generateToken(userId, name));
         } else {
             dispatch(authFail());
         }

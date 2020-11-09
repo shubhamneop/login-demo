@@ -272,6 +272,16 @@
     margin-top: 20px;
 }
 
+.orange {
+  color: #fff;
+  background-color: #ff5722;
+}
+
+.purple {
+  color: #fff;
+  background-color :#673ab7;
+}
+
 
 /* 
 .feed {

@@ -7,6 +7,8 @@ import Reaction from '../../components/UI/Reaction';
 import UserReact from '../../components/UI/UserReact';
 import { FontAwesomeIcon}  from '@fortawesome/react-fontawesome';
 import {faCog} from '@fortawesome/free-solid-svg-icons';
+import { Button } from '@material-ui/core';
+import Avatar from '@material-ui/core/Avatar';
 
 
 
@@ -111,7 +113,6 @@ function Chat(props) {
                 });
                 channel.watch().then(state => {
                     channel.on('message.new', event => {
-                        console.log(event);
                         const messages = [...messageDataRef.current, event.message];
                         setMessageData(messages);
                         setTimeout(function(){
@@ -142,9 +143,6 @@ function Chat(props) {
                     state: true,
                 });
                 
-                for (const c of channels) {
-                    console.log(c, c.cid);
-                }
                 setUserChannels(channels);
             }
         }
@@ -183,12 +181,13 @@ function Chat(props) {
         <section className="msger">
         <header className="msger-header">
             <div className="msger-header-title">
-            <i className="fas fa-comment-alt"></i> {props.toUserName}
+    <i className="fas fa-comment-alt"></i> {props.toUserName}
+
             </div>
             <div className="msger-header-options">
-                <button onClick={askNotificationPermission}>
+                <Button variant="outlined" size="small" onClick={askNotificationPermission}>
                    <span><FontAwesomeIcon icon={faCog} /></span>
-                </button>
+                </Button>
             </div>
         </header>
 

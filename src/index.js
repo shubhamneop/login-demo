@@ -10,12 +10,14 @@ import thunk from 'redux-thunk';
 import authReducer from './store/reducers/auth';
 import userReducer from './store/reducers/user';
 import postsReducer from './store/reducers/posts';
+import chatReducer from './store/reducers/chat';
 
 
 const rootReducer = combineReducers({
   auth: authReducer,
   user: userReducer,
   post: postsReducer,
+  chat: chatReducer,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

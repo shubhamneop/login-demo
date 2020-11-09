@@ -45,10 +45,12 @@ const GroupChat = React.lazy(() => {
 class App extends Component {
 
   componentDidMount() {
-    console.log(this.props.history);
     this.props.onChekAuth();
     if(this.props.isAuth) {
       this.props.getUser(this.props.token);
+      setTimeout(function() {
+        this.props.generateToken(this.props.userId, this.props.name);
+      }.bind(this), 4000);
   }
   }
 
@@ -90,6 +92,8 @@ const mapStateToProps = state => {
   return {
     isAuth: state.auth.isAuth,
     token: state.auth.token,
+    userId: state.auth.userId,
+    name: state.auth.name,
   }
 }
 
@@ -97,6 +101,7 @@ const mapDispatchToProps = dispatch => {
   return {
     onChekAuth: () => dispatch(actions.checkAuth()),
     getUser: (token) => dispatch(actions.getUser(token)),
+    generateToken: (id, name) => dispatch(actions.generateToken(id, name)),
   }
 }
 
